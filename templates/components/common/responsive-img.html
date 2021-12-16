@@ -58,4 +58,6 @@ pick the best-sized image based on its own understanding of how it will render t
 {{else if default_image}}src="{{cdn default_image}}" alt="{{lang 'products.card_default_image_alt'}}"{{/if}}
 class="{{#unless lazyload '==' 'disabled'}}lazyload{{/unless}}{{#if class}} {{class}}{{/if}}"
 {{#if lazyload '==' 'lazyload'}}loading="lazy"{{/if}}
-{{otherAttributes}} />
+data_hoverimage="{{#replace '{:size}' images.1.data}}500x659{{/replace}}{{getImage images.1.data 'productgallery_size' (cdn theme_settings.default_image_product)}}" 
+default_image="{{getImageSrcset image 1x=(default fallback_size '160w')}}"
+/>

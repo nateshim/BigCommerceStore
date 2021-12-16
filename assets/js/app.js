@@ -93,6 +93,19 @@ window.stencilBootstrap = function stencilBootstrap(pageType, contextJSON = null
                     });
                 });
             });
+            $('.card-image').each(function() {
+                $(this).on('mouseenter', function() {
+                    console.log("enter");
+                    var newImg = $(this).attr('data_hoverimage');
+                    console.log(newImg);
+                    $(this).attr('srcset', newImg);
+                }).on('mouseleave', function() {
+                    console.log("leave");
+                    var newImg = $(this).attr('default_image');
+                    console.log(newImg);
+                    $(this).attr('srcset', newImg);
+                });
+            });
         },
     };
 };
