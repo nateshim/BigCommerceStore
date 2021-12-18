@@ -12,4 +12,4 @@ Virtual sandbox for testing and implementing features using BigCommerce and Stor
 ## Credentials
 Store Home Page URL: https://special-store6.mybigcommerce.com/?ctk=65b9873f-d483-4e1a-ae33-2f508874f303
 
-Stencil OAuth Access Token: oh8yutcw4g0vfn8o7rx1uh4mxhz27u5
+Preview Code: padbkq3v6v
