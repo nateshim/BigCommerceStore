@@ -214,8 +214,10 @@
         "button": "Compara prodotti",
         "header": "Confronto tra {products, plural, one {# prodotto} other {# prodotti}}",
         "remove": "Rimuovi",
+        "remove_all_items": "Rimuovi tutti gli elementi",
         "no_remove": "Sono necessari almeno 2 prodotti per fare un confronto valido.",
         "add_to_cart": "Aggiungi al carrello",
+        "add_all_to_cart": "Aggiungi tutto al carrello",
         "no_compare": "Devi selezionare almeno due prodotti da confrontare"
     },
     "category": {

@@ -1,6 +1,7 @@
 __webpack_public_path__ = window.__webpack_public_path__; // eslint-disable-line
 
 import Global from './theme/global';
+import utils from '@bigcommerce/stencil-utils';
 
 const getAccount = () => import('./theme/account');
 const getLogin = () => import('./theme/auth');
@@ -95,16 +96,52 @@ window.stencilBootstrap = function stencilBootstrap(pageType, contextJSON = null
             });
             $('.card-image').each(function() {
                 $(this).on('mouseenter', function() {
-                    console.log("enter");
                     var newImg = $(this).attr('data_hoverimage');
-                    console.log(newImg);
                     $(this).attr('srcset', newImg);
                 }).on('mouseleave', function() {
-                    console.log("leave");
                     var newImg = $(this).attr('default_image');
-                    console.log(newImg);
                     $(this).attr('srcset', newImg);
                 });
+            });
+
+            $("button#add_all_to_cart").on('click', function() {
+                var category_id = $(this).data('category-id');
+                return $.get(`https://api.bigcommerce.com/stores/gxxsugbxzz/v3/catalog/products?categories:in=${category_id}`, function(data, status, xhr) {
+                    for (let i = 0; i < data.length; i++) {
+                        $.get(`/cart.php?action=add&product_id=${data[i].id}`)
+                        .fail(function(xhr, status, error) {
+                            console.error(error);
+                            return xhr.done();
+                        });
+                    }
+                })
+                .fail(function(xhr, status, error) {
+                    console.error(error);
+                    return xhr.done();
+                })
+            });
+            $("button#remove_all_items").on('click', function() {
+                var category_id = $(this).data('category-id');
+                return $.get(`https://api.bigcommerce.com/stores/gxxsugbxzz/v3/catalog/products?categories:in=${category_id}`, function(data, status, xhr) {
+                    for (let i = 0; i < data.length; i++) {
+                        utils.api.cart.itemUpdate(data[i].id, 0, (err, response) => {
+                            if (response.data.status === 'succeed') {
+                                const remove = (newQty === 0);
+                                this.refreshContent(remove);
+                            } else {
+                                $el.val(oldQty);
+                                swal.fire({
+                                    text: response.data.errors.join('\n'),
+                                    icon: 'error',
+                                });
+                            }
+                        });
+                    }
+                })
+                .fail(function(xhr, status, error) {
+                    console.error(error);
+                    return xhr.done();
+                })
             });
         },
     };

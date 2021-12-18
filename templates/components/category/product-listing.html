@@ -2,7 +2,14 @@
 
 {{#if category.products}}
     {{> components/products/filter sort=pagination.category.sort}}
-
+    <button id="add_all_to_cart" type="button" class="button button--small card-figcaption-button" data-event-type="product-click" data-button-type="add-all-to-cart"  data-category-id="{{category.id}}">  
+    {{lang 'compare.add_all_to_cart'}}
+    </button>
+    {{#if cart.quantity '>' 0}}
+        <button id="remove_all_items" type="button" class="button button--small card-figcaption-button" data-event-type="product-click" data-button-type="remove-all-items" data-category-id="{{category.id}}">
+            {{lang 'compare.remove_all_items'}}
+        </button>
+    {{/if}}  
     <form action="{{urls.compare}}" method='POST' {{#if settings.data_tag_enabled}} data-list-name="Category: {{category.name}}" {{/if}} data-product-compare>
         {{#if theme_settings.product_list_display_mode '===' 'grid'}}
             {{#if settings.data_tag_enabled}}
